@@ -18,3 +18,6 @@
 	Ship 3
 	</div>
 </div>
+
+<input name="ship" id="ship" class="ship"></input>
+<button id="dock" class="dock">dock</button>
