@@ -5,5 +5,4 @@
 *.ali
 
 .idea/
-vendor/
-composer.lock
+vendor
