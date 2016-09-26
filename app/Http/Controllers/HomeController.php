@@ -17,6 +17,10 @@ class HomeController extends BaseController
         $input = $request->input('number');
         $response = [ 'number' => $input,  'error' => 'not a number' ];
         if(is_numeric($input)){
+            if($input > 1000000){
+                $response['error'] = 'too big number (>1e6)';
+                return response()->json($response, 200);
+            }
             $index = 0;
             $decomposition = [];
             $temp = $input;
