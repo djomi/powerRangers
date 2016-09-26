@@ -1,5 +1,7 @@
 ## Running locally
 
+YoseTheGame
+
 Simply run:
 
 ```sh
