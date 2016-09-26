@@ -29,6 +29,25 @@ class PrimeFactorTest extends TestCase
     {
         $response = $this->call('GET', 'primeFactors', [ 'number' => 1000001 ])->getContent();
         $this->assertEquals(json_encode([ 'number' => 1000001, 'error' => 'too big number (>1e6)' ]), $response);
+    }
 
+    public function testMultipleEntries()
+    {
+        $expected = [
+            [
+                'number' => 1000001,
+                'error' => 'too big number (>1e6)'
+            ],
+            [
+                'number' => 16,
+                'decomposition' => [ 2, 2, 2, 2 ]
+            ],
+            [
+                'number' => 32,
+                'decomposition' => [ 2, 2, 2, 2, 2 ]
+            ]
+        ];
+        $response = $this->call('GET', 'primeFactors?number=32&number=16&number=1000001')->getContent();
+        $this->assertEquals(json_encode($expected), $response);
     }
 }

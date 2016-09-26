@@ -32,19 +32,20 @@ class HomeController extends BaseController
                     if($value > 1000000){
                         $response[$inp]['number'] = intval($value);
                         $response[$inp]['error'] = 'too big number (>1e6)';
-                    }
-                    $index = 0;
-                    $decomposition = [];
-                    $temp = $value;
-                    for ($i = 2; $i <= $temp; $i++) {
-                        while ($temp % $i == 0) {
-                            $temp /= $i;
-                            $decomposition[$index] = $i;
-                            $index++;
+                    }else{
+                        $index = 0;
+                        $decomposition = [];
+                        $temp = $value;
+                        for ($i = 2; $i <= $temp; $i++) {
+                            while ($temp % $i == 0) {
+                                $temp /= $i;
+                                $decomposition[$index] = $i;
+                                $index++;
+                            }
                         }
-                    }
 
-                    $response[$inp] = [ 'number' => intval($value),  'decomposition' => $decomposition ];
+                        $response[$inp] = [ 'number' => intval($value),  'decomposition' => $decomposition ];
+                    }
                 }
             }
 
