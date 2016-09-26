@@ -15,30 +15,54 @@ class HomeController extends BaseController
     public function test(Request $request)
     {
         $input = $request->input('number');
-        $response = [ 'number' => $input,  'error' => 'not a number' ];
-        if(is_numeric($input)){
-            if($input > 1000000){
-                $response['error'] = 'too big number (>1e6)';
-                return response()->json($response, 200);
-            }
-            $index = 0;
-            $decomposition = [];
-            $temp = $input;
-            for ($i = 2; $i <= $temp; $i++) {
-                $count = 0;
-                while ($temp % $i == 0) {
-                    $temp /= $i;
-                    $decomposition[$index] = $i;
-                    $index++;
-                    $count++;
+        if(is_array($input)){
+            $response = [];
+            foreach ($input as $inp => $value){
+                $response[$inp] = [ 'number' => $value,  'error' => 'not a number' ];
+                if(is_numeric($value)){
+                    if($value > 1000000){
+                        $response[$inp]['error'] = 'too big number (>1e6)';
+                    }
+                    $index = 0;
+                    $decomposition = [];
+                    $temp = $value;
+                    for ($i = 2; $i <= $temp; $i++) {
+                        while ($temp % $i == 0) {
+                            $temp /= $i;
+                            $decomposition[$index] = $i;
+                            $index++;
+                        }
+                    }
+
+                    $response[$inp] = [ 'number' => $value,  'decomposition' => $decomposition ];
                 }
             }
 
-            $response = [ 'number' => $input,  'decomposition' => $decomposition ];
+            return response()->json($response, 200);
+        }else{
+            $response = [ 'number' => $input,  'error' => 'not a number' ];
+            if(is_numeric($input)){
+                if($input > 1000000){
+                    $response['error'] = 'too big number (>1e6)';
+                    return response()->json($response, 200);
+                }
+                $index = 0;
+                $decomposition = [];
+                $temp = $input;
+                for ($i = 2; $i <= $temp; $i++) {
+                    while ($temp % $i == 0) {
+                        $temp /= $i;
+                        $decomposition[$index] = $i;
+                        $index++;
+                    }
+                }
+
+                $response = [ 'number' => $input,  'decomposition' => $decomposition ];
+                return response()->json($response, 200);
+            }
+
             return response()->json($response, 200);
         }
-
-        return response()->json($response, 200);
     }
 
     public function minesweeper(){
