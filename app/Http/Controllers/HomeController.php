@@ -20,12 +20,13 @@ class HomeController extends BaseController
             $check = false;
             $a = [];
             $i = 0;
+            $temp = $input;
             while(!$check){
-                $input = $input / 2;
+                $temp = $temp / 2;
                 $a[$i] = 2;
                 $i++;
 
-                if($input == 1){
+                if($temp == 1){
                    $check = true;
                 }
             }
