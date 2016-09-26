@@ -12,4 +12,18 @@ class HomeTest extends TestCase
         $this->visit('/')
              ->see('Hello Yose');
     }
+    public function testContantMe()
+    {
+        $this->visit('/')
+            ->click('Contact Me')
+            ->seePageIs('https://powerrangers.herokuapp.com/ping');
+    }
+    public function testPingChallenge()
+    {
+        $this->visit('/')
+            ->click('Ping Challenge')
+            ->seeJson([
+                'alive' => true
+            ]);
+    }
 }
