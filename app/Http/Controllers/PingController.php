@@ -12,7 +12,7 @@ class PingController extends BaseController
     }
 
     public function astroport(){
-    	return view('astoport');
+    	return view('astroport');
     }
 
 
