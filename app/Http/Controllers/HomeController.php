@@ -9,7 +9,7 @@ class HomeController extends BaseController
 {
     public function welcome()
     {
-      return view('welcome');  
+      return view('welcome');
     }
 
     public function test(Request $request)
@@ -17,26 +17,20 @@ class HomeController extends BaseController
         $input = $request->input('number');
         $response = [ 'number' => $input,  'error' => 'not a number' ];
         if(is_numeric($input)){
-            $r = ($input & ($input - 1)) === 0 ? true : false;
-            if($r === true){
-                $check = false;
-                $a = [];
-                $i = 0;
-                $temp = $input;
-                while(!$check){
-                    $temp = $temp / 2;
-                    $a[$i] = 2;
-                    $i++;
-
-                    if($temp == 1){
-                        $check = true;
-                    }
+            $index = 0;
+            $decomposition = [];
+            for ($i = 2; $i <= $input; $i++) {
+                $count = 0;
+                while ($input % $i == 0) {
+                    $input /= $i;
+                    $decomposition[$index] = $i;
+                    $index++;
+                    $count++;
                 }
-
-                $response = [ 'number' => $input,  'decomposition' => $a ];
-
-                return response()->json($response, 200);
             }
+
+            $response = [ 'number' => $input,  'decomposition' => $decomposition ];
+            return response()->json($response, 200);
         }
 
         return response()->json($response, 200);
