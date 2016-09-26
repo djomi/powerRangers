@@ -15,27 +15,30 @@ class HomeController extends BaseController
     public function test(Request $request)
     {
         $input = $request->input('number');
-        $r = ($input & ($input - 1)) === 0 ? true : false;
-        if($r === true){
-            $check = false;
-            $a = [];
-            $i = 0;
-            $temp = $input;
-            while(!$check){
-                $temp = $temp / 2;
-                $a[$i] = 2;
-                $i++;
+        $response = [ 'number' => $input,  'error' => 'not a number' ];
+        if(is_numeric($input)){
+            $r = ($input & ($input - 1)) === 0 ? true : false;
+            if($r === true){
+                $check = false;
+                $a = [];
+                $i = 0;
+                $temp = $input;
+                while(!$check){
+                    $temp = $temp / 2;
+                    $a[$i] = 2;
+                    $i++;
 
-                if($temp == 1){
-                   $check = true;
+                    if($temp == 1){
+                        $check = true;
+                    }
                 }
+
+                $response = [ 'number' => $input,  'decomposition' => $a ];
+
+                return response()->json($response, 200);
             }
-
-            $response = [ 'number' => $input,  'decomposition' => $a ];
-
-            return response()->json($response, 200);
         }
 
-        return response()->json('something went wrong', 400);
+        return response()->json($response, 200);
     }
 }
