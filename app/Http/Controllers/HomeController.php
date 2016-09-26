@@ -14,13 +14,23 @@ class HomeController extends BaseController
 
     public function test(Request $request)
     {
-        $input = $request->input('number');
-        if(is_array($input)){
+        $input = $request->fullUrl();
+        $test = explode($request->url().'?', $input);
+
+        $exp = explode('&', $test[1]);
+        $a = [];
+        foreach($exp as $ex){
+            $test = explode('number=', $ex);
+            $a[] = $test[1];
+        }
+
+        if(count($a) > 1){
             $response = [];
-            foreach ($input as $inp => $value){
+            foreach ($a as $inp => $value){
                 $response[$inp] = [ 'number' => $value,  'error' => 'not a number' ];
                 if(is_numeric($value)){
                     if($value > 1000000){
+                        $response[$inp]['number'] = intval($value);
                         $response[$inp]['error'] = 'too big number (>1e6)';
                     }
                     $index = 0;
@@ -34,21 +44,22 @@ class HomeController extends BaseController
                         }
                     }
 
-                    $response[$inp] = [ 'number' => $value,  'decomposition' => $decomposition ];
+                    $response[$inp] = [ 'number' => intval($value),  'decomposition' => $decomposition ];
                 }
             }
 
             return response()->json($response, 200);
         }else{
-            $response = [ 'number' => $input,  'error' => 'not a number' ];
-            if(is_numeric($input)){
-                if($input > 1000000){
+            $response = [ 'number' => $a[0],  'error' => 'not a number' ];
+            if(is_numeric($a[0])){
+                if($a[0] > 1000000){
+                    $response['number'] = intval($a[0]);
                     $response['error'] = 'too big number (>1e6)';
                     return response()->json($response, 200);
                 }
                 $index = 0;
                 $decomposition = [];
-                $temp = $input;
+                $temp = $a[0];
                 for ($i = 2; $i <= $temp; $i++) {
                     while ($temp % $i == 0) {
                         $temp /= $i;
@@ -57,7 +68,7 @@ class HomeController extends BaseController
                     }
                 }
 
-                $response = [ 'number' => $input,  'decomposition' => $decomposition ];
+                $response = [ 'number' => intval($a[0]),  'decomposition' => $decomposition ];
                 return response()->json($response, 200);
             }
 
