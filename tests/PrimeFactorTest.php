@@ -24,4 +24,10 @@ class PrimeFactorTest extends TestCase
         $this->call('GET', 'primeFactors', [ 'numbers' => 300 ]);
         $this->seeJson([ 'number' => 300, 'decomposition' => [ 2, 2, 3, 5, 5 ] ]);
     }
+
+    public function testBiggerThan1e6()
+    {
+        $this->call('GET', 'primeFactors', [ 'numbers' => 1000001 ]);
+        $this->seeJson([ 'number' => 1000001, 'error' => 'too big number (>1e6)' ]);
+    }
 }

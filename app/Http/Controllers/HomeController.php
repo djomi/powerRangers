@@ -17,12 +17,17 @@ class HomeController extends BaseController
         $input = $request->input('number');
         $response = [ 'number' => $input,  'error' => 'not a number' ];
         if(is_numeric($input)){
+            if($input > 1000000){
+                $response['error'] = 'too big number (>1e6)';
+                return response()->json($response, 200);
+            }
             $index = 0;
             $decomposition = [];
-            for ($i = 2; $i <= $input; $i++) {
+            $temp = $input;
+            for ($i = 2; $i <= $temp; $i++) {
                 $count = 0;
-                while ($input % $i == 0) {
-                    $input /= $i;
+                while ($temp % $i == 0) {
+                    $temp /= $i;
                     $decomposition[$index] = $i;
                     $index++;
                     $count++;
@@ -34,5 +39,9 @@ class HomeController extends BaseController
         }
 
         return response()->json($response, 200);
+    }
+
+    public function minesweeper(){
+    	return view('minesweeper');
     }
 }
