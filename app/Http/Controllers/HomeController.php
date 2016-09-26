@@ -40,4 +40,8 @@ class HomeController extends BaseController
 
         return response()->json($response, 200);
     }
+
+    public function minesweeper(){
+    	return view('minesweeper');
+    }
 }
