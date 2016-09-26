@@ -10,4 +10,10 @@ class PingController extends BaseController
     {
       return response()->json(['alive' => true]);
     }
+
+    public function astroport(){
+    	return view('astoport');
+    }
+
+
 }
