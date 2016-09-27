@@ -5,8 +5,9 @@
 		
       <script type = "text/javascript" language = "javascript">
          
-      	function load(){
-      		document.getElementById("cell-3x6").innerHTML = "lost";
+      	function load(string){
+      		if(document.getElementById("cell-"+string).id == "cell-3x6")
+      			document.getElementById("cell-"+string).innerHTML = 'lost';
       	}
          /*$( document ).ready(function() {
 			$("#cell-3x6").click(function(){
@@ -28,14 +29,28 @@
         
 </script>
 
+<!--table border="2">
+@for($i = 1 ; $i <= 8; $i++)
+	<tr>
+	@for($a = 1; $a <= 8; $a++)
+		@if($i==3 && $a== 6)
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>bomb</td>
+		@else
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>empty</td>
+		@endif
+	@endfor
+	</tr>
+@endfor
+</table-->
+
 <table border="2">
 @for($i = 1 ; $i <= 8; $i++)
 	<tr>
 	@for($a = 1; $a <= 8; $a++)
 		@if($i==3 && $a== 6)
-			<td onclick='load()' id='cell-{{ $i.'x'.$a }}'>bomb</td>
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>bomb</td>
 		@else
-			<td id='cell-{{ $i.'x'.$a }}'>empty</td>
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>empty</td>
 		@endif
 	@endfor
 	</tr>

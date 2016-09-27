@@ -26,4 +26,11 @@ class HomeTest extends TestCase
                 'alive' => true
             ]);
     }
+
+    public function testMineSweeper()
+    {
+        $response = $this->call('GET', '/minesweeper');
+
+        $this->assertEquals(200, $response->status());
+    }
 }
