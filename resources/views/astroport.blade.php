@@ -1,6 +1,11 @@
+<style>
+	.hidden {
+		display: none;
+	}
+</style>
 
 <div id="astroport-name" class="astroport-name">Astroport Name</div>
-<div id="gate-1" class="gate-1">
+<div id="gate-1" class="gate-1 free">
 	Gate 1
 	<div id="ship-1" class="ship-1">
 	Ship 1
@@ -23,13 +28,22 @@
 	<button id="dock" class="dock" type="submit">dock</button>
 </form>
 
+<section id="info" class="hidden">
+	The ship has been docked at gate 1
+</section>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
+		var temp = $('#ship').val();
 		$("form").submit(function(event){
 			$('#ship-1 ').html($('#ship').val());
+			$('#gate-1').removeClass('free').addClass('occupied');
+			if (temp == $('#ship').val()) $('#info').removeClass('hidden');
+			else $('#info').addClass('hidden')
+
 			event.preventDefault();
 		});
 	});
 </script>
+
