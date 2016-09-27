@@ -20,6 +20,12 @@ class HomeController extends BaseController
      */
     public function primeFactors(Request $request)
     {
+        $response = self::primeFormResponse($request);
+        return response()->json((count($response) > 1 ? $response : reset($response)), 200);
+    }
+
+    public function primeFormResponse(Request $request)
+    {
         $queryString = $request->getQueryString();
         $explodes = explode('&', $queryString);
         $inputs = $response = [];
@@ -32,7 +38,7 @@ class HomeController extends BaseController
             $response[$inp] = self::primeFactorFunc($value);
         }
 
-        return response()->json((count($response) > 1 ? $response : reset($response)), 200);
+        return $response;
     }
 
     public function primeForm(Request $request)
