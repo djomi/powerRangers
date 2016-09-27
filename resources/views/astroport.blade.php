@@ -44,6 +44,7 @@
 			$('#gate-'+i).removeClass('free').addClass('occupied');
 			if (i === 1) {
 				$('#gate-3').removeClass('occupied').addClass('free');
+				$('#info').removeClass('hidden').addClass('visible');
 				i++;
 			} else if (i === 3) {
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
@@ -52,8 +53,7 @@
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
 				i++;
 			}
-			$('#info').removeClass('hidden').addClass('visible');
-			$('#ship').val('');
+			$("#ship").val('');
 			event.preventDefault();
 		});
 
@@ -63,6 +63,7 @@
 		$('#ship').keypress(function () {
 			$('#info').removeClass('visible').addClass('hidden');
 		});
+
 	});
 </script>
 
