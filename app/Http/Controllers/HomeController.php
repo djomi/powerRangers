@@ -35,6 +35,11 @@ class HomeController extends BaseController
         return response()->json((count($response) > 1 ? $response : reset($response)), 200);
     }
 
+    public function primeForm()
+    {
+        return view('prime-form');
+    }
+
 
     /**
      * private function for primeFactor logic
