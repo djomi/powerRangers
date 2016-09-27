@@ -1,14 +1,6 @@
-machine:
-  php:
-    version: 5.6
-
 test:
   override:
     - php vendor/bin/phpunit tests
-
-dependencies:
-  pre:
-    - sed -i 's/^;//' ~/.phpenv/versions/$(phpenv global)/etc/conf.d/xdebug.ini
 
 general:
   artifacts:
