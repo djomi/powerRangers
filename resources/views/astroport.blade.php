@@ -53,6 +53,7 @@
 				i++;
 			}
 			$('#info').removeClass('hidden').addClass('visible');
+			$('#ship').val('');
 			event.preventDefault();
 		});
 
