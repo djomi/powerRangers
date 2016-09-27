@@ -51,9 +51,10 @@
 				i = 1;
 			} else {
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
+				$('#info').removeClass('visible').addClass('hidden');
 				i++;
 			}
-			$("#ship").val('');
+//			$("#ship").val('');
 			event.preventDefault();
 		});
 
