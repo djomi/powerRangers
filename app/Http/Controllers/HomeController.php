@@ -43,10 +43,10 @@ class HomeController extends BaseController
 
     public function primeForm(Request $request)
     {
-        $queryString = $request->getQueryString();
+        $queryString = $request->get('number');
         $html = null;
         if($queryString){
-            $explodes = explode('&', $queryString);
+            $explodes = explode(',', $queryString);
             $inputs = $response = [];
             foreach($explodes as $explode){
                 $secondExplodes = explode('number=', $explode);
