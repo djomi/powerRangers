@@ -82,4 +82,26 @@ class HomeController extends BaseController
     public function minesweeper(){
     	return view('minesweeper');
     }
+
+    public function fire(Request $request)
+    {
+        $map = $request->get('map');
+        $width = $request->get('width');
+        $arrayMap = str_split($map,($width));
+
+        foreach ($arrayMap as $key => $value) {
+                if (str_contains($value, ['P','W','F']))
+                {
+                    $d[$key]['dx'] = 1;
+                    $d[$key]['dy'] = 0;  
+                } else { 
+                    $d[$key]['dx'] = 0;
+                    $d[$key]['dy'] = 1;
+                }
+        }
+
+
+
+        return response()->json(['map' => $arrayMap, 'moves' => $d]);
+    }
 }

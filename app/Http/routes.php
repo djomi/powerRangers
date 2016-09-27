@@ -17,5 +17,6 @@ $app->get('/ping', "PingController@ping");
 $app->get('/primeFactors', 'HomeController@primeFactors');
 $app->get('/primeFactors/{ name }', 'HomeController@primeForm');
 
+$app->get('/fire/geek', 'HomeController@fire');
 $app->get('minesweeper','HomeController@minesweeper');
 $app->get('/astroport', 'PingController@astroport');
