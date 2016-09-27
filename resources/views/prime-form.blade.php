@@ -32,7 +32,7 @@
                         }
                     }
 
-                    $('h1#result').html(html);
+                    $('form').append("<h1 id='result'>"+ html + "</h1>");
                 }
             });
             event.preventDefault();
