@@ -52,14 +52,17 @@ class HomeController extends BaseController
             }
 
             $data = reset($response);
+            if(isset($data['error'])){
+                $html = $data['error'];
+            }else{
+                $html = $data['number']. ' = ';
+                $count = count($data['decomposition']);
 
-            $html = $data['number']. ' = ';
-            $count = count($data['decomposition']);
-
-            foreach($data['decomposition'] as $key => $decomposition){
-                $html .= $decomposition;
-                if($key != ($count - 1)){
-                    $html .= ' x ';
+                foreach($data['decomposition'] as $key => $decomposition){
+                    $html .= $decomposition;
+                    if($key != ($count - 1)){
+                        $html .= ' x ';
+                    }
                 }
             }
         }
