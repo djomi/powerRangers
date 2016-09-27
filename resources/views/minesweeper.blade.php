@@ -7,6 +7,13 @@
          $( document ).ready(function() {
 			$("#cell-3x6").click(function(){
 			    $("#cell-3x6").load("../lost.html");
+			    for(a=1;a<=8;a++)
+			    {
+			    	for(b=1;b<=8;b++)
+			    	{
+			    		$("#cell-"+a+'x'+b).load("../lost.html");
+			    	}
+			    }
 			});
 		});
       	
