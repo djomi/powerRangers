@@ -2,6 +2,9 @@
 	.hidden {
 		display: none;
 	}
+	.visible {
+		display: block;
+	}
 </style>
 
 <div id="astroport-name" class="astroport-name">Astroport Name</div>
@@ -35,21 +38,26 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
-//		var temp = $('#ship').val();
-		var i = 0;
+		var i = 1;
 		$("form").submit(function(event){
-			$('#ship-1 ').html($('#ship').val());
-			$('#gate-1').removeClass('free').addClass('occupied');
-			if (i === 0) {
-				$('#info').removeClass('hidden');
+			$('#ship-'+i).html($('#ship').val());
+			$('#gate-'+i).removeClass('free').addClass('occupied');
+			if (i === 1) {
+				$('#gate-3').removeClass('occupied').addClass('free');
 				i++;
+			} else if (i === 3) {
+				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
+				i = 1;
 			} else {
-				$('#info').addClass('hidden')
+				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
+				i++;
 			}
-//			if (temp == $('#ship').val()) $('#info').removeClass('hidden');
-//			else $('#info').addClass('hidden')
-
+			$('#info').removeClass('hidden').addClass('visible');
 			event.preventDefault();
+		});
+
+		$("#ship").keydown(function(){
+			$('#info').removeClass('visible').addClass('hidden');
 		});
 	});
 </script>
