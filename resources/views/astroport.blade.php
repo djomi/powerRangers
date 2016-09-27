@@ -63,9 +63,6 @@
 		$('#ship').keypress(function () {
 			$('#info').removeClass('visible').addClass('hidden');
 		});
-		$('#ship').click(function(){
-			$('#info').removeClass('visible').addClass('hidden');
-		});
 	});
 </script>
 
