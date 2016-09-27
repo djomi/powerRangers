@@ -6,8 +6,8 @@
       <script type = "text/javascript" language = "javascript">
          
       	function load(string){
-      		if(document.getElementById("cell-"+string).innerText == "bomb"){
-      			//document.getElementById("cell-"+string).setAttribute('class', 'lost');
+      		if(document.getElementById("cell-"+string).id == "cell-3x6"){
+      			document.getElementById("cell-"+string).className= 'lost';
       			document.getElementById("cell-"+string).innerHTML= 'lost';
       		}
       	}
