@@ -26,21 +26,28 @@
 	Ship 3
 	</div>
 </div>
+
+<a id="info" class="hidden">
+	The ship has been docked at gate 1
+</a>
+
 <form>
-	<input name="ship" id="ship" class="ship" value="Gros Mollo">
+	<input name="ship" id="ship" class="ship" value="">
 	<button id="dock" class="dock" type="submit">dock</button>
 </form>
 
-<section id="info" class="hidden">
-	The ship has been docked at gate 1
-</section>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
 		var i = 1;
 		$("form").submit(function(event){
-			$('#ship-'+i).html($('#ship').val());
+			$('#ship-1').html($('#ship').val());
+			$('#gate-1').removeClass('free').addClass('occupied');
+			$('#info').removeClass('hidden');
+			$("#ship").val('');
+			/*$('#ship-'+i).html($('#ship').val());
 			$('#gate-'+i).removeClass('free').addClass('occupied');
 			if (i === 1) {
 				$('#gate-3').removeClass('occupied').addClass('free');
@@ -53,17 +60,17 @@
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
 				$('#info').removeClass('visible').addClass('hidden');
 				i++;
-			}
+			}*/
 //			$("#ship").val('');
 			event.preventDefault();
 		});
 
 		$("#ship").keydown(function(){
-			$('#info').removeClass('visible').addClass('hidden');
+			$('#info').addClass('hidden');
 		});
-		$('#ship').keypress(function () {
+		/*$('#ship').keypress(function () {
 			$('#info').removeClass('visible').addClass('hidden');
-		});
+		});*/
 
 	});
 </script>
