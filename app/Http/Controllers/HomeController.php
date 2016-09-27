@@ -12,55 +12,43 @@ class HomeController extends BaseController
       return view('welcome');
     }
 
-    public function test(Request $request)
+    /**
+     * function for primeFactor case
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function primeFactors(Request $request)
     {
-        $input = $request->fullUrl();
-        $test = explode($request->url().'?', $input);
-
-        $exp = explode('&', $test[1]);
-        $a = [];
-        foreach($exp as $ex){
-            $test = explode('number=', $ex);
-            $a[] = $test[1];
+        $queryString = $request->getQueryString();
+        $explodes = explode('&', $queryString);
+        $inputs = $response = [];
+        foreach($explodes as $explode){
+            $secondExplodes = explode('number=', $explode);
+            $inputs[] = current(array_values(array_filter( $secondExplodes )));
         }
 
-        if(count($a) > 1){
-            $response = [];
-            foreach ($a as $inp => $value){
-                $response[$inp] = [ 'number' => $value,  'error' => 'not a number' ];
-                if(is_numeric($value)){
-                    if($value > 1000000){
-                        $response[$inp]['number'] = intval($value);
-                        $response[$inp]['error'] = 'too big number (>1e6)';
-                    }else{
-                        $index = 0;
-                        $decomposition = [];
-                        $temp = $value;
-                        for ($i = 2; $i <= $temp; $i++) {
-                            while ($temp % $i == 0) {
-                                $temp /= $i;
-                                $decomposition[$index] = $i;
-                                $index++;
-                            }
-                        }
+        foreach ($inputs as $inp => $value){
+            $response[$inp] = self::primeFactorFunc($value);
+        }
 
-                        $response[$inp] = [ 'number' => intval($value),  'decomposition' => $decomposition ];
-                    }
-                }
-            }
+        return response()->json((count($response) > 1 ? reset($response) : $response), 200);
+    }
 
-            return response()->json($response, 200);
-        }else{
-            $response = [ 'number' => $a[0],  'error' => 'not a number' ];
-            if(is_numeric($a[0])){
-                if($a[0] > 1000000){
-                    $response['number'] = intval($a[0]);
-                    $response['error'] = 'too big number (>1e6)';
-                    return response()->json($response, 200);
-                }
+
+    /**
+     * private function for primeFactor logic
+     *
+     * @param string $input
+     * @return array
+     */
+    private function primeFactorFunc($input)
+    {
+        switch($input){
+            case is_numeric($input) && $input < 1000000:
                 $index = 0;
                 $decomposition = [];
-                $temp = $a[0];
+                $temp = $input;
                 for ($i = 2; $i <= $temp; $i++) {
                     while ($temp % $i == 0) {
                         $temp /= $i;
@@ -69,12 +57,21 @@ class HomeController extends BaseController
                     }
                 }
 
-                $response = [ 'number' => intval($a[0]),  'decomposition' => $decomposition ];
-                return response()->json($response, 200);
-            }
-
-            return response()->json($response, 200);
+                $response = [ 'number' => intval($input),  'decomposition' => $decomposition ];
+                break;
+            case is_numeric($input) && $input > 1000000:
+                $response = [
+                    'number' => intval($input),
+                    'error' => 'too big number (>1e6)'
+                ];
+                break;
+            default:
+                $response = [
+                    'number' => $input,
+                    'error' => 'not a number'
+                ];
         }
+        return $response;
     }
 
     public function minesweeper(){
