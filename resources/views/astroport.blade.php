@@ -11,13 +11,13 @@
 	Ship 1
 	</div>
 </div>
-<div id="gate-2" class="gate-2">
+<div id="gate-2" class="gate-2 free">
 	Gate 2
 	<div id="ship-2" class="ship-2">
 	Ship 2
 	</div>
 </div>
-<div id="gate-3" class="gate-3">
+<div id="gate-3" class="gate-3 free">
 	Gate 3
 	<div id="ship-3" class="ship-3">
 	Ship 3
