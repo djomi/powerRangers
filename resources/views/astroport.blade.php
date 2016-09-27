@@ -56,12 +56,15 @@
 			event.preventDefault();
 		});
 
-		/*$("#ship").keydown(function(){
+		$("#ship").keydown(function(){
 			$('#info').removeClass('visible').addClass('hidden');
-		});*/
+		});
 		$('#ship').keypress(function () {
 			$('#info').removeClass('visible').addClass('hidden');
-		})
+		});
+		$('#ship').click(function(){
+			$('#info').removeClass('visible').addClass('hidden');
+		});
 	});
 </script>
 
