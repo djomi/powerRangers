@@ -18,6 +18,18 @@
 	Ship 3
 	</div>
 </div>
+<form>
+	<input name="ship" id="ship" class="ship" value="Millenium Falcon">
+	<button id="dock" class="dock" type="submit">dock</button>
+</form>
 
-<input name="ship" id="ship" class="ship"></input>
-<button id="dock" class="dock">dock</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("form").submit(function(event){
+			$('#ship-1 ').html($('#ship').val());
+			event.preventDefault();
+		});
+	});
+</script>
