@@ -6,8 +6,10 @@
       <script type = "text/javascript" language = "javascript">
          
       	function load(string){
-      		if(document.getElementById("cell-"+string).innerText == "bomb")
-      			document.getElementById("cell-"+string).setAttribute('class', 'lost');
+      		if(document.getElementById("cell-"+string).innerText == "bomb"){
+      			//document.getElementById("cell-"+string).setAttribute('class', 'lost');
+      			document.getElementById("cell-"+string).innerHTML= 'lost';
+      		}
       	}
          /*$( document ).ready(function() {
 			$("#cell-3x6").click(function(){
@@ -33,8 +35,8 @@
 @for($i = 1 ; $i <= 8; $i++)
 	<tr>
 	@for($a = 1; $a <= 8; $a++)
-		@if(rand(0,100)%2==0)
-			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>bomb</td>
+		@if($i == 3 && $a ==6)
+			<td onclick='load("{{ $i.'x'.$a }}")' class='bomb' id='cell-{{ $i.'x'.$a }}'>bomb</td>
 		@else
 			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>empty</td>
 		@endif
