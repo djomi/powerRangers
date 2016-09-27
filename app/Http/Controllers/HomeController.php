@@ -35,9 +35,36 @@ class HomeController extends BaseController
         return response()->json((count($response) > 1 ? $response : reset($response)), 200);
     }
 
-    public function primeForm()
+    public function primeForm(Request $request)
     {
-        return view('prime-form');
+        $queryString = $request->getQueryString();
+        $html = null;
+        if($queryString){
+            $explodes = explode('&', $queryString);
+            $inputs = $response = [];
+            foreach($explodes as $explode){
+                $secondExplodes = explode('number=', $explode);
+                $inputs[] = current(array_values(array_filter( $secondExplodes )));
+            }
+
+            foreach ($inputs as $inp => $value){
+                $response[$inp] = self::primeFactorFunc($value);
+            }
+
+            $data = reset($response);
+
+            $html = $data['number']. ' = ';
+            $count = count($data['decomposition']);
+
+            foreach($data['decomposition'] as $key => $decomposition){
+                $html .= $decomposition;
+                if($key != ($count - 1)){
+                    $html .= ' x ';
+                }
+            }
+        }
+
+        return view('prime-form', compact('html'));
     }
 
 
