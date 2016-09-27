@@ -27,7 +27,7 @@
 	</div>
 </div>
 <form>
-	<input name="ship" id="ship" class="ship" value="Millenium Falcon">
+	<input name="ship" id="ship" class="ship" value="Gros Mollo">
 	<button id="dock" class="dock" type="submit">dock</button>
 </form>
 
@@ -44,24 +44,27 @@
 			$('#gate-'+i).removeClass('free').addClass('occupied');
 			if (i === 1) {
 				$('#gate-3').removeClass('occupied').addClass('free');
+				$('#info').removeClass('hidden').addClass('visible');
 				i++;
 			} else if (i === 3) {
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
 				i = 1;
 			} else {
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
+				$('#info').removeClass('visible').addClass('hidden');
 				i++;
 			}
-			$('#info').removeClass('hidden').addClass('visible');
+//			$("#ship").val('');
 			event.preventDefault();
 		});
 
-		/*$("#ship").keydown(function(){
+		$("#ship").keydown(function(){
 			$('#info').removeClass('visible').addClass('hidden');
-		});*/
+		});
 		$('#ship').keypress(function () {
 			$('#info').removeClass('visible').addClass('hidden');
-		})
+		});
+
 	});
 </script>
 
