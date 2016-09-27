@@ -61,6 +61,8 @@ class HomeController extends BaseController
             if(isset($data['error'])){
                 if($data['error'] === 'not a number')
                     $html = $data['number'].' is '.$data['error'];
+                else if ($data['error'] === 'not an integer > 1')
+                    $html = $data['number'].' is '.$data['error'];
                 else
                     $html = $data['error'];
             }else{
@@ -89,6 +91,12 @@ class HomeController extends BaseController
     private function primeFactorFunc($input)
     {
         switch($input){
+            case is_numeric($input) && $input < 1:
+                $response = [
+                    'number' => intval($input),
+                    'error' => 'not an integer > 1'
+                ];
+                break;
             case is_numeric($input) && $input < 1000000:
                 $index = 0;
                 $decomposition = [];

@@ -27,7 +27,7 @@
 	</div>
 </div>
 <form>
-	<input name="ship" id="ship" class="ship" value="Millenium Falcon">
+	<input name="ship" id="ship" class="ship" value="">
 	<button id="dock" class="dock" type="submit">dock</button>
 </form>
 
@@ -53,10 +53,17 @@
 				i++;
 			}
 			$('#info').removeClass('hidden').addClass('visible');
+			$('#ship').val('');
 			event.preventDefault();
 		});
 
 		$("#ship").keydown(function(){
+			$('#info').removeClass('visible').addClass('hidden');
+		});
+		$('#ship').keypress(function () {
+			$('#info').removeClass('visible').addClass('hidden');
+		});
+		$('#ship').click(function(){
 			$('#info').removeClass('visible').addClass('hidden');
 		});
 	});
