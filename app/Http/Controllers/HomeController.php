@@ -45,40 +45,43 @@ class HomeController extends BaseController
     {
         $queryString = $request->get('number');
         $html = null;
+        $htmls = [];
         if($queryString){
-            $explodes = explode(',', $queryString);
-            $inputs = $response = [];
-            foreach($explodes as $explode){
-                $secondExplodes = explode('number=', $explode);
-                $inputs[] = current(array_values(array_filter( $secondExplodes )));
-            }
+            $inputs = explode(',', $queryString);
+            $response = [];
 
             foreach ($inputs as $inp => $value){
                 $response[$inp] = self::primeFactorFunc($value);
             }
 
-            $data = reset($response);
-            if(isset($data['error'])){
-                if($data['error'] === 'not a number')
-                    $html = $data['number'].' is '.$data['error'];
-                else if ($data['error'] === 'not an integer > 1')
-                    $html = $data['number'].' is '.$data['error'];
-                else
-                    $html = $data['error'];
-            }else{
-                $html = $data['number']. ' = ';
-                $count = count($data['decomposition']);
+            foreach($response as $data){
+                if(isset($data['error'])){
+                    if($data['error'] === 'not a number')
+                        $html = $data['number'].' is '.$data['error'];
+                    else if ($data['error'] === 'not an integer > 1')
+                        $html = $data['number'].' is '.$data['error'];
+                    else
+                        $html = $data['error'];
+                }else{
+                    $html = $data['number']. ' = ';
+                    $count = count($data['decomposition']);
 
-                foreach($data['decomposition'] as $key => $decomposition){
-                    $html .= $decomposition;
-                    if($key != ($count - 1)){
-                        $html .= ' x ';
+                    foreach($data['decomposition'] as $key => $decomposition){
+                        $html .= $decomposition;
+                        if($key != ($count - 1)){
+                            $html .= ' x ';
+                        }
                     }
+                }
+
+                if(count($response) > 2){
+                    $htmls[] = $html;
+                    $html = null;
                 }
             }
         }
 
-        return view('prime-form', compact('html'));
+        return view('prime-form', compact('html', 'htmls'));
     }
 
 

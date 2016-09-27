@@ -10,3 +10,11 @@
         {{ $html }}
     @endif
 </h1>
+
+<ol id="results">
+    @if($htmls)
+        @foreach($htmls as $html)
+            <li>{{ $html }}</li>
+        @endforeach
+    @endif
+</ol>
