@@ -29,6 +29,20 @@
         
 </script>
 
+<!--table border="2">
+@for($i = 1 ; $i <= 8; $i++)
+	<tr>
+	@for($a = 1; $a <= 8; $a++)
+		@if($i==3 && $a== 6)
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>bomb</td>
+		@else
+			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>empty</td>
+		@endif
+	@endfor
+	</tr>
+@endfor
+</table-->
+
 <table border="2">
 @for($i = 1 ; $i <= 8; $i++)
 	<tr>
