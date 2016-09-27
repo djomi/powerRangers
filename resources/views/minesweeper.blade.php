@@ -6,7 +6,7 @@
       <script type = "text/javascript" language = "javascript">
          
       	function load(string){
-      		if(document.getElementById("cell-"+string).id == "cell-3x6")
+      		if(document.getElementById ("cell-"+string).innerText == "bomb")
       			document.getElementById("cell-"+string).innerHTML = 'lost';
       	}
          /*$( document ).ready(function() {
@@ -47,7 +47,7 @@
 @for($i = 1 ; $i <= 8; $i++)
 	<tr>
 	@for($a = 1; $a <= 8; $a++)
-		@if($i==3 && $a== 6)
+		@if(rand(0,64)%2 == 0)
 			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>bomb</td>
 		@else
 			<td onclick='load("{{ $i.'x'.$a }}")' id='cell-{{ $i.'x'.$a }}'>empty</td>
