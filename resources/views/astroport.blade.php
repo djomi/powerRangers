@@ -27,7 +27,7 @@
 	</div>
 </div>
 <form>
-	<input name="ship" id="ship" class="ship" value="">
+	<input name="ship" id="ship" class="ship" value="Gros Mollo">
 	<button id="dock" class="dock" type="submit">dock</button>
 </form>
 
