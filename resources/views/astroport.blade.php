@@ -35,12 +35,19 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function(){
-		var temp = $('#ship').val();
+//		var temp = $('#ship').val();
+		var i = 0;
 		$("form").submit(function(event){
 			$('#ship-1 ').html($('#ship').val());
 			$('#gate-1').removeClass('free').addClass('occupied');
-			if (temp == $('#ship').val()) $('#info').removeClass('hidden');
-			else $('#info').addClass('hidden')
+			if (i === 0) {
+				$('#info').removeClass('hidden');
+				i++;
+			} else {
+				$('#info').addClass('hidden')
+			}
+//			if (temp == $('#ship').val()) $('#info').removeClass('hidden');
+//			else $('#info').addClass('hidden')
 
 			event.preventDefault();
 		});
