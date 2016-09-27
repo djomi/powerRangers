@@ -59,7 +59,10 @@ class HomeController extends BaseController
 
             $data = reset($response);
             if(isset($data['error'])){
-                $html = $data['error'];
+                if($data['error'] === 'not a number')
+                    $html = $data['number'].' is '.$data['error'];
+                else
+                    $html = $data['error'];
             }else{
                 $html = $data['number']. ' = ';
                 $count = count($data['decomposition']);
