@@ -43,7 +43,6 @@
 			$('#ship-'+i).html($('#ship').val());
 			$('#gate-'+i).removeClass('free').addClass('occupied');
 			if (i === 1) {
-				$('#info').removeClass('hidden').addClass('visible');
 				$('#gate-3').removeClass('occupied').addClass('free');
 				i++;
 			} else if (i === 3) {
@@ -51,11 +50,14 @@
 				i = 1;
 			} else {
 				$('#gate-'+(i-1)).removeClass('occupied').addClass('free');
-				$('#info').removeClass('visible').addClass('hidden');
 				i++;
 			}
-
+			$('#info').removeClass('hidden').addClass('visible');
 			event.preventDefault();
+		});
+
+		$("#ship").keydown(function(){
+			$('#info').removeClass('visible').addClass('hidden');
 		});
 	});
 </script>
