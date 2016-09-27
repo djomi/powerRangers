@@ -32,7 +32,7 @@ class HomeController extends BaseController
             $response[$inp] = self::primeFactorFunc($value);
         }
 
-        return response()->json((count($response) > 1 ? reset($response) : $response), 200);
+        return response()->json((count($response) > 1 ? $response : reset($response)), 200);
     }
 
 
